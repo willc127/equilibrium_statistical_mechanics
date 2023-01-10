@@ -8,7 +8,7 @@ int main(){
 	FILE *in;
 	FILE *intf;
 	
-	int n = 1372;
+	int n = 500;
 	float kb  = 1.38064852E-23;
 	float NA = 6.0221409E23;
 	float dens = 100;
@@ -16,11 +16,11 @@ int main(){
 	
 	in = fopen("temper.dat","r"); //usar'r' somente para leitura
 	intf = fopen("tf.dat","r");
-	v = 2000; //valor de t onde acaba a zona de equilibração
+	v = 2000; //valor de t onde acaba a zona de equilibraï¿½ï¿½o
 	fscanf(intf,"%f",&tf);
 	//printf("%f\n",tf);
 
-	for(i=1;i<=tf;i++){ //para o cálculo da energia cinética média
+	for(i=1;i<=tf;i++){ //para o cï¿½lculo da energia cinï¿½tica mï¿½dia
 		
 		fscanf(in,"%f %f %f %f %f %f ",&t,&T[i],&Pr[i],&kin[i],&V[i],&H[i]);	
 		if (i>=v){
@@ -46,7 +46,7 @@ int main(){
 	float P_corr1 = (32/9*pi*Dens_corr*Dens_corr)/(pow(rcut_corr,9.0))-((16/3*pi*Dens_corr*Dens_corr)/pow(rcut_corr,3.0))*NA*1e-5;
 	float P_corr2 = eps/m*P_corr1/(sigma*sigma*sigma);
 		
-	for(i=1;i<=tf;i++){ //calcula a variância da energia cinética
+	for(i=1;i<=tf;i++){ //calcula a variï¿½ncia da energia cinï¿½tica
 		
 		if (i>=v){
 		somavar = somavar + (kin[i]-kinmedia)*(kin[i]-kinmedia);
@@ -77,7 +77,7 @@ int main(){
    	float T_cv_v2 = 2180;
    	float T_cv_v3 = 4320;
    	float T_cv_v4 = 1870;
-   
+
     float termo1_1 = (T_cv_v1/Tm);
     float termo1_2 = (T_cv_v2/Tm);
     float termo1_3 = (T_cv_v3/Tm);
@@ -100,7 +100,7 @@ int main(){
     
     float cv_v = NA*kb*(deg1*(termo1_1*termo1_1)*termo2_1+deg2*(termo1_2*termo1_2)*termo2_2+deg3*(termo1_3*termo1_3)*termo2_3+deg4*(termo1_4*termo1_4)*termo2_4);
 
-	// Cálculo de Cv
+	// Cï¿½lculo de Cv
     float Cv3   = Cv + cv_v + 1.5*NA*kb;	
 	printf("%f %f %f %f \n",Tm,Prm,Hm+V_corr2,Cv3);	
 
