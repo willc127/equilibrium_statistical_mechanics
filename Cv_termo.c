@@ -62,6 +62,7 @@ int main(){
 			if (i>=v){
 						
 			Cv = (NA*((3*kb)/(2*(1-(var*(2/3)*(1/(n*kb*kb*T[i]*T[i]))))))); //J/molK
+			printf("Cv: %f \n", Cv);	
 			somacv = somacv + Cv;
 			somaT = somaT + T[i];
 			
@@ -102,7 +103,7 @@ int main(){
 
 	// C�lculo de Cv
     float Cv3   = Cv + cv_v + 1.5*NA*kb;	
-	printf("%f %f %f %f \n",Tm,Prm,Hm+V_corr2,Cv3);	
+	//printf("%f %f %f %f \n",Tm,Prm,Hm+V_corr2,Cv3);	
 
 return 0;	
 }
