@@ -18,28 +18,33 @@ float ranf(int seed[1]);
 
 int main()
 {
+	// Define the variables
 	int i, j, k;
 	float rx[MAX], ry[MAX], rz[MAX];
-	FILE *in;
 
-	int cont = 0;
-	int n = 500; // total number of particles
+	//opening file to write the positions
+	FILE *in;
+	in = fopen("cfc.xyz", "w");
+
+	//Define the total number of particles
+	int n = 864; // n = (4, 32, 108, 256, 500, 864, 1372, 2048, 2916, 4000...)
 	int NC = (int)(cbrt(0.25 * (float)(n))); // total number of cells
 	printf("n = %d\n", n);
 	printf("nc = %d\n", NC);
-	float T = 500.0;		   // temperature in Kelvin
-	float kb = 1.38064852E-23; // Boltzmann's constant
-	float NA = 6.0221409E23;   // Avogadro's number
-	float R = kb * NA;		   // universal gas constant
-	float m = 16.0;			   // molecular weight of methane (g/mol)
-	float dens = 100.0;		   // density in kg/m3
-	float csi = sqrt(3.0 * (float)(n)*R * T / (m * 1e-3));
-	float a = pow(4 * m * 1e-3 / (dens * NA), 1.0 / 3.0) * 1e10; // cubic edge in angstrom
-
-	in = fopen("cfc.xyz", "w");
 	fprintf(in, "%d\n\n", n);
 
+	//Define the chemical and thermodynamical parameters
+	float T  = 500.0;		   // temperature in Kelvin
+	float kb = 1.38064852E-23; // Boltzmann's constant
+	float NA = 6.0221409E23;   // Avogadro's number
+	float R  = kb * NA;		   // universal gas constant
+	float m  = 16.0;		   // molecular weight of methane (g/mol)
+	float dens = 100.0;		   // density in kg/m3
+	float csi  = sqrt(3.0*(float)(n)*R*T/(m * 1e-3));
+	float a  = pow(4*m*1e-3/(dens*NA),1.0/3.0)*1e10; // cubic edge in angstrom
+	
 	// Atoms positions
+	int cont = 0;
 	// ! This loop calculates the positions in the vertices
 	for (i = 0; i < NC; i++)
 	{
@@ -166,7 +171,7 @@ int main()
 	float boxly = a * NC;
 	float boxlz = a * NC;
 
-	// centralize the cube in (0,0,0)
+	//center the cube in (0,0,0)
 	for (i = 0; i < n; i++)
 	{
 		rx[i] = rx[i] - boxlx * 0.5;
@@ -174,12 +179,14 @@ int main()
 		rz[i] = rz[i] - boxlz * 0.5;
 	}
 
+	//write the positions in file
 	for (i = 0; i < n; i++)
 		fprintf(in, "12 %e %e %e %e %e %e \n", rx[i], ry[i], rz[i], vx[i], vy[i], vz[i]);
 	fclose(in);
 	return 0;
 }
 
+//determine a random seed for generate the initial velocities	
 float ranf(int seed[1])
 {
 	int l = 1029;

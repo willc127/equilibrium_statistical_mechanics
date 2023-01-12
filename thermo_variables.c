@@ -15,7 +15,7 @@ int main(){
 	FILE *in;
 	
 	int atom = 12; //part�cula a ser utilizada
-	n = 500;  // n�mero de part�culas
+	n = 864;  // n�mero de part�culas
 	in=fopen("cfc.xyz","r"); //usar'r' somente para leitura
 	fscanf(in,"%d",&n);
 	printf("%d\n",n);
@@ -50,16 +50,13 @@ fclose(in);
 
 	FILE *out;
 	out = fopen("movs.xyz","w");
-	FILE *ttf;
-	ttf = fopen("tf.dat","w");
 	
 	float t = 0;
 	float dt = 1;
 	float dt2 = dt*0.5;
-	float tf = 5000;
+	float tf = 6000;
 	float T;
 	float kin;
-	fprintf(ttf,"%f \n",tf);
 	float pot;
 	int ct = 0;
 	FILE *temp;
@@ -88,10 +85,10 @@ fclose(in);
 
 			if(ct==2){
 							
-				//fprintf(out,"%d\n\n",n);
+				fprintf(out,"%d\n\n",n);
 					
 				for (k=0;k<n;k++){ 
-				//	fprintf(out,"12 %f %f %f  \n",rx[k],ry[k],rz[k]);
+					fprintf(out,"12 %f %f %f  \n",rx[k],ry[k],rz[k]);
 				//	printf("12 %f %f %f %e %e %e %e %e %e \n",rx[i],ry[i],rz[i],vx[i],vy[i],vz[i],ax[i],ay[i],az[i]);
 					ct = 0;	
 				}
@@ -112,7 +109,6 @@ fclose(in);
 	}
 	
 fclose(out);
-fclose(ttf);
 return 0;	
 }
 	
